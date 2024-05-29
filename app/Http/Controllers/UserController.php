@@ -21,12 +21,17 @@ class UserController extends Controller
     }
 
     
-    Public function IDEdit(){
+    Public function editUser(){
         return view('users.IDEdit');
     }
 
         
-    Public function IdDelete(){
+    Public function deleteUser(){
         return view('users.IDDelet');
+    }
+
+         
+    Public function listUser( Request $request,$uid){
+        print($uid);
     }
 }
