@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Cadastro</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,10 +11,10 @@
         }
 
         .container {
-            max-width: 400px;
+            width: 50%;
             margin: 50px auto;
-            padding: 20px;
             background-color: #fff;
+            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -29,52 +29,60 @@
 
         label {
             display: block;
-            font-weight: bold;
+            margin-bottom: 5px;
         }
 
+        input[type="text"],
         input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; /* For consistent sizing */
+            box-sizing: border-box;
         }
 
         button {
-            width: 100%;
-            padding: 10px;
             background-color: #007bff;
             color: #fff;
             border: none;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
         }
 
-        .error-message {
-            color: red;
-            text-align: center;
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
-        <form id="loginForm" method="post" action="{{route('login') }}">
+        <h2>Cadastro</h2>
+        <form action="{{route('register')}}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
-                @error('email')<span class="error-message">{{ $message }}</span>@enderror
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" value="{{old('name')}}" required>
+             @error('name')<span>{{$message}} </span>  @enderror  
             </div>
             <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-                @error('password')<span class="error-message">{{ $message }}</span>@enderror
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email"value="{{old('email')}}" required>
+                @error('email')<span>{{$message}} </span>  @enderror
             </div>
-            <button type="submit">Login</button>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="password" name="password" required>
+                @error('password')<span>{{$message}} </span>  @enderror
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required>
+            </div>
+            <button type="submit" value="Registrar">Cadastrar</button>
         </form>
-        <p id="error-message" class="error-message"></p>
     </div>
 </body>
 </html>
