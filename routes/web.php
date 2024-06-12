@@ -31,9 +31,13 @@ Route::middleware('auth')->group(function(){
          [UserController::class, 'listAllUsers'])
          ->name('listAllUsers');
 
-    Route::get('/users/{uid}',
-     [UserController::class, 'listUser']
-     )->name('listUser');
+    Route::put('/users/{uid}/update',
+     [UserController::class, 'updateUser']
+     )->name('UpdateUser');
+
+     Route::delete('/users/{uid}/delete',
+     [UserController::class, 'deleteUser']
+     )->name('DeleteUser');
 });
 
 

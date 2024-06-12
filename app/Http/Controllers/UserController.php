@@ -16,8 +16,32 @@ class UserController extends Controller
     }
 
     public function listUser(Request $request, $uid){
-        print($uid);
+        //procurar o usuario no banco
+        $user =User::where('id', $uid)->first();
+        return view('user.profile', ['user' =>$user]);
     }
+
+    public function updateUser(Request $request, $uid){
+        //procurar o usuario no banco
+        $user =User::where('id', $uid)->first();
+        $user->name = $request->name;
+        $user-> email = $request-> email;
+        if ($request->password != ''){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return redirect()->route('listUser',[$user->id])
+        ->with('message','Atualizado com sucesso!');
+    }
+
+    public function deleteUser(Request $request, $uid){
+    
+        User::where('id', $uid)->delete();
+        return redirect()->route('listAllUsers')
+        ->with('message','Atualizado com sucesso!');
+    }
+
+
 
     public function registerUser(Request $request){
         if($request->method() === 'GET'){
@@ -48,7 +72,5 @@ class UserController extends Controller
         return view('users.IDEdit');
     }
 
-    public function deleteUser(){
-        return view('users.IDDelet');
-    }
+  
 }
