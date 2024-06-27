@@ -4,14 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
+Route::get('/', function () {
+    return view('layouts.gpt');
+});
 
-Route::get('/users',
-    [UserController::class, 'listAllUsers']
-    )->name('listAllUsers');
-
-Route::get('/users/{uid}',
-    [UserController::class, 'listUser']
-    )->name('listUser');
 
 Route::match (['get','post'],'/login',
     [AuthController::class, 'loginUser']
@@ -28,8 +24,12 @@ Route::match (['get','post'],'/register',
 
 Route::middleware('auth')->group(function(){
     Route::get('/users',
-         [UserController::class, 'listAllUsers'])
-         ->name('listAllUsers');
+    [UserController::class, 'listAllUsers']
+    )->name('listAllUsers');
+
+Route::get('/users/{uid}',
+    [UserController::class, 'listUser']
+    )->name('listUser');
 
     Route::put('/users/{uid}/update',
      [UserController::class, 'updateUser']
@@ -40,8 +40,13 @@ Route::middleware('auth')->group(function(){
      )->name('DeleteUser');
 });
 
+Route::get('/criar', function () {
+    return view('criar');
+});
+Route::get('/visualizar', function () {
+    return view('visualizar');
+});
 
-
-Route::get('/users/perfil', [UserController:: class, 'perfilUser'])->name('perfil');
+//Route::get('/user/{uid}', [UserController:: class, 'listUser'])->name('listUser');
 Route::get('/users/perfil2', [UserController:: class, 'editUser'])->name('edit');
 Route::get('/users/3', [UserController:: class, 'deleteUser'])->name('delete');
